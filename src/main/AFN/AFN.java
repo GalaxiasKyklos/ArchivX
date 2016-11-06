@@ -5,6 +5,12 @@ import java.util.Hashtable;
 /**
  * Created by Rodolfo on 05/11/2016.
  */
+
+/**
+ * Clase que crea un AFN dada una cadena
+ * El AFN acepta sólo la cadena exacta, pero esta puede estar entre paréntesis o terminar con punto
+ * @author Rodolfo & Saúl
+ */
 public class AFN {
     private int estados;
     private int estadoactual;
@@ -12,12 +18,10 @@ public class AFN {
     private String alfabeto[];
     Hashtable<String, Integer> transicion=new Hashtable<>();
 
-   /* public AFN(int states,String alphabet[], String finalStates[]){
-        estados=states;
-        alfabeto=alphabet;
-        estadosfinales=finalStates;
-        estadoactual=0;
-    }*/
+    /**
+     * Constructor
+     * @param palabra Palabra que aceptara el autómata a crear
+     */
     public AFN(String palabra){
         estados=palabra.length()+1;
         estadosfinales=palabra.length();
@@ -38,50 +42,45 @@ public class AFN {
         transicion.put(""+estadosfinales+" ",estadosfinales);
 
     }
-
-
-    /*public void matrizTransicion(String key,String transiciones[]){
-        transicion.put(key,transiciones);
-        for(int i=0;i<transiciones.length;i++){
-            System.out.println(key+""+transiciones[i]);
-        }
-    }*/
-    /*public Boolean validW(String w){
-        return esElemento(w, alfabeto.length,alfabeto, 0);
-    }
-    private Boolean esElemento(String w, int leng_l, String palabras[], int index) {
-        for (int i = 0; i < leng_l; i++) {
-            int length = palabras[i].length();//se obtiene la longitud de la palabra para saber el tamano del substring a obtener
-            if (index + length <= w.length()) {//se revisa que no salgamos del tamano de la palabra w
-                System.out.println(w.substring(index,index+length));
-                System.out.println(palabras[i]);
-                if (w.substring(index,index+length).equals(palabras[i].substring(0, 1))) {//se obtiene el substring y se compara
-                    System.out.println("ok");
-                    if (index + length == w.length()) {
-                        return true;//si el tamano de w y el indice actual mas la longitd del elemento actual del lenguaje son iguales entonces w pertenece a L*
-                    } else if (esElemento(w, leng_l, palabras, index + length)) {//recursividad para continuar analizando w
-                        return true;//se revisa lo que la funcion regreso mas adelante, si se encontro que pertenecia entonces se sale, si no continua buscando
-                    }
-                }
-            }
-        }
-        return false;//no se encontro cadena que satisfaga una seccion de w
-    }*/
+    
+    /**
+     * Obtienene el siguiente estado
+     * @param actual Estado acutal
+     */
     private void nextState(String actual){
         String key="";
         key+=estadoactual+actual;
         //estadoactual= Integer.parseInt(transicion.get(key));
     }
+    
+    /**
+     * Determina si un estado es final o no
+     * @param estado Estado a verificar
+     * @return true si el estado es final, false en otro caso
+     */
     private Boolean isFinalState(int estado){
         if(estado==estadosfinales){
             return true;
         }
         return false;
     }
+    
+    /**
+     * Función para determinar si la cadena w es aceptada por el autómata
+     * Solo llama a otra que hace entrabajo
+     * @param w cadena a verificar
+     * @return true si es aceptada, false en otro caso
+     */
     public boolean isWElement(String w){
         return isWElement(w,0);
     }
 
+    /**
+     * Determina si la cadena w es aceptada por el autómata, función recursiva
+     * @param w cadena a verificar
+     * @param estado esatdo actual de en la llamada recursiva
+     * @return true si es aceptada, false en otro caso
+     */
     private Boolean isWElement(String w, int estado){
         String key=""+estado+w.substring(0,1);
         String keylambda=""+estado+"lamb";
@@ -100,22 +99,15 @@ public class AFN {
                 }
             }
         }
-        /*if(transicion.containsKey(keylambda)){
-            numestados=transicion.get(keylambda).length;
-            System.out.println(keylambda+" "+numestados);
-            for(int i=0;i<numestados;i++){
-                if(isWElement(w, Integer.parseInt(transicion.get(keylambda)[i]))){
-                    return true;
-                }
-            }
-        }
-        if(!transicion.containsKey(keylambda)&&!transicion.containsKey(key)){
-            return false;
-        }*/
-
 
         return false;
     }
+    
+    /**
+     * Determina si se puede llegar a un estado final sólo con transiciones con lambda
+     * @param estado estado actual de la llamada recursiva
+     * @return true si se llega a un estado final, false en otro caso
+     */
     public Boolean lastLambda(int estado){
         String key=""+estado+"lamb";
         int numestados;
