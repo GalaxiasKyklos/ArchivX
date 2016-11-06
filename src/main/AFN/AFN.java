@@ -9,7 +9,7 @@ import java.util.Hashtable;
 /**
  * Clase que crea un AFN dada una cadena
  * El AFN acepta sólo la cadena exacta, pero esta puede estar entre paréntesis o terminar con punto
- * @author Rodolfo & Saúl
+ * @author Rodolfo, Saúl
  */
 public class AFN {
     private int estados;
