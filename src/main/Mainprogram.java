@@ -26,13 +26,13 @@ public class Mainprogram {
         if(afn.isWElement(prueba)){
             JOptionPane.showMessageDialog(null,"Palabra aceptada", "Prueba de Cadena", JOptionPane.INFORMATION_MESSAGE);
         }else{
-            JOptionPane.showMessageDialog(null,"Palabra no aceptada", "Prueba de Subcadena", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Palabra no aceptada", "Prueba de Cadena", JOptionPane.INFORMATION_MESSAGE);
         }
         
         if(afnsub.isWElement(prueba)){
-            JOptionPane.showMessageDialog(null,"Palabra aceptada");
+            JOptionPane.showMessageDialog(null,"Palabra aceptada", "Prueba de Subcadena", JOptionPane.INFORMATION_MESSAGE);
         }else{
-            JOptionPane.showMessageDialog(null,"Palabra no aceptada");
+            JOptionPane.showMessageDialog(null,"Palabra no aceptada", "Prueba de Subcadena", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 }
