@@ -29,6 +29,8 @@ public class AFNSubcadena {
         transicion.put(""+0+"(",0);
         transicion.put(""+0+" ",0);
         
+        // Agregamos transiciones para que el autómata acepte cualquier cosa al 
+        // principio y al final
         for (int i = 0; i < 0xFF; i++) {
             transicion.put("0" + ((char) i), 0);
             transicion.put((estados-1) + "" + ((char) i), estados-1);
