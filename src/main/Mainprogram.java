@@ -6,6 +6,10 @@ import javax.swing.*;
 import main.AFN.AFNSubcadena;
 import main.archivos.Archivos;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Hashtable;
+
 /**
  * Created by Rodolfo on 05/11/2016.
  */
@@ -36,9 +40,16 @@ public class Mainprogram {
             JOptionPane.showMessageDialog(null,"Palabra no aceptada", "Prueba de Subcadena", JOptionPane.INFORMATION_MESSAGE);
         }*/
         
-        Archivos archivos = new Archivos();
+        /*Archivos archivos = new Archivos();
         while (archivos.hasNext()) {
             System.out.println(archivos.nextString());
+        }*/
+
+        Busqueda busqueda=new Busqueda();
+        Hashtable<File,ArrayList<Integer>>result=busqueda.verifyString("hola");
+        for(File file:result.keySet()){
+            System.out.println(file.getName());
+            System.out.println(result.get(file));
         }
     }
 }

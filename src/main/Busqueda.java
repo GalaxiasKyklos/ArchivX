@@ -16,7 +16,7 @@ public class Busqueda {
     private Archivos archivos;
 
     public Busqueda(){
-        cadena=true;
+        cadena=false;
         archivos= new Archivos();
     }
 
@@ -33,10 +33,12 @@ public class Busqueda {
         if(cadena){
             AFNCadena afnCadena=new AFNCadena(palabra);
             while (archivos.hasNext()){
-                if(afnCadena.isWElement(archivos.nextString())){
-                    if(!table.containsKey(archivos.getCurrentFile())) {
+                String cadena=archivos.nextString();
+                if(cadena.length()>0)
+                if(afnCadena.isWElement(cadena)){
+                    /*if(!table.containsKey(archivos.getCurrentFile())) {
                         table.put(archivos.getCurrentFile(), null);
-                    }
+                    }*/
                     if(table.get(archivos.getCurrentFile())==null){
                         table.put(archivos.getCurrentFile(),new ArrayList<>());
                         table.get(archivos.getCurrentFile()).add(archivos.getCurrentLine());
@@ -50,10 +52,12 @@ public class Busqueda {
         }else{
             AFNSubcadena afnSubcadena=new AFNSubcadena(palabra);
             while (archivos.hasNext()){
-                if(afnSubcadena.isWElement(archivos.nextString())){
-                    if(!table.containsKey(archivos.getCurrentFile())) {
+                String cadena=archivos.nextString();
+                if(cadena.length()>0)
+                if(afnSubcadena.isWElement(cadena)){
+                    /*if(!table.containsKey(archivos.getCurrentFile())) {
                         table.put(archivos.getCurrentFile(), null);
-                    }
+                    }*/
                     if(table.get(archivos.getCurrentFile())==null){
                         table.put(archivos.getCurrentFile(),new ArrayList<>());
                         table.get(archivos.getCurrentFile()).add(archivos.getCurrentLine());
