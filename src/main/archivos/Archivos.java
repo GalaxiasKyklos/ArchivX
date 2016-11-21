@@ -7,7 +7,6 @@ package main.archivos;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileFilter;
 import java.io.FileReader;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
@@ -21,7 +20,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class Archivos {
     private File files[];
     private ArrayList<String[]> currentStr;
-    private File currentFile;
     private int fileIndex;
     private int lineIndex;
     private int strIndex;
@@ -34,8 +32,9 @@ public class Archivos {
         int c = chooser.showOpenDialog(null);
         
         if (c == JFileChooser.APPROVE_OPTION) {
-            File folder = new File(chooser.getCurrentDirectory().getAbsolutePath());
+            File folder = chooser.getSelectedFile();
             System.out.println(chooser.getCurrentDirectory().getAbsolutePath());
+
             files = folder.listFiles(new FilenameFilter() {
                 public boolean accept(File dir, String name) {
                     return name.toLowerCase().endsWith(".txt");
