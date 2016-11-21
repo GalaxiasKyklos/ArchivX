@@ -23,6 +23,7 @@ public class Archivos {
     private int fileIndex;
     private int lineIndex;
     private int strIndex;
+    private String currentPath;
     
     public Archivos() {
         JFileChooser chooser = new JFileChooser();
@@ -33,13 +34,10 @@ public class Archivos {
         
         if (c == JFileChooser.APPROVE_OPTION) {
             File folder = chooser.getSelectedFile();
+            currentPath = chooser.getCurrentDirectory().getAbsolutePath();
             System.out.println(chooser.getCurrentDirectory().getAbsolutePath());
 
-            files = folder.listFiles(new FilenameFilter() {
-                public boolean accept(File dir, String name) {
-                    return name.toLowerCase().endsWith(".txt");
-                }
-             });
+            files = folder.listFiles((File dir, String name) -> name.toLowerCase().endsWith(".txt"));
         }
         
         fileIndex = 0;
@@ -88,5 +86,9 @@ public class Archivos {
     
     public int getCurrentLine() {
         return lineIndex;
+    }
+    
+    public String getCurrentPath() {
+        return currentPath;
     }
 }
