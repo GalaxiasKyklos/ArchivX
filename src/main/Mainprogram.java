@@ -4,6 +4,7 @@ import main.AFN.AFNCadena;
 
 import javax.swing.*;
 import main.AFN.AFNSubcadena;
+import main.archivos.Archivos;
 
 /**
  * Created by Rodolfo on 05/11/2016.
@@ -15,7 +16,7 @@ import main.AFN.AFNSubcadena;
  */
 public class Mainprogram {
     public static void main(String[] args) {
-        // Creamos el autómata a partir de una palabra
+        /*// Creamos el autómata a partir de una palabra
         String palabra= JOptionPane.showInputDialog("Introduzca la palabra a buscar");
         AFNCadena afn=new AFNCadena(palabra);
         AFNSubcadena afnsub = new AFNSubcadena(palabra);
@@ -33,6 +34,11 @@ public class Mainprogram {
             JOptionPane.showMessageDialog(null,"Palabra aceptada", "Prueba de Subcadena", JOptionPane.INFORMATION_MESSAGE);
         }else{
             JOptionPane.showMessageDialog(null,"Palabra no aceptada", "Prueba de Subcadena", JOptionPane.INFORMATION_MESSAGE);
+        }*/
+        
+        Archivos archivos = new Archivos();
+        while (archivos.hasNext()) {
+            System.out.println(archivos.nextString());
         }
     }
 }
