@@ -41,11 +41,15 @@ public class AFNSubcadena {
                 n.add(1);
             }
             transicion.put("0" + ((char) i), n);
-            n.clear();
-            n.add(estados-1);
-            transicion.put((estados-1) + "" + ((char) i),n);
+            System.out.println(transicion.get("0p"));
+            ArrayList<Integer> m=new ArrayList<Integer>();
+            m.add(estados-1);
+            transicion.put((estados-1) + "" + ((char) i),m);
+            System.out.println((estados-1) + "" + ((char) i));
+            System.out.println(transicion.get("0p"));
+            System.out.println(transicion.get("5p"));
         }
-        
+        System.out.println(transicion.get("0p").get(0));
         
         for(int i=1;i<estados-1;i++){
             ArrayList<Integer> n=new ArrayList<Integer>();
@@ -53,15 +57,15 @@ public class AFNSubcadena {
             String key=""+i+palabra.charAt(i);
             transicion.put(key, n);
         }
-        actual.clear();
+        ArrayList<Integer> actual2=new ArrayList<Integer>();
         actual.add(estadosfinales);
-        transicion.put(""+estadosfinales+".",actual);
-        transicion.put(""+estadosfinales+",",actual);
-        transicion.put(""+estadosfinales+";",actual);
-        transicion.put(""+estadosfinales+":",actual);
-        transicion.put(""+estadosfinales+"'",actual);
-        transicion.put(""+estadosfinales+")",actual);
-        transicion.put(""+estadosfinales+" ",actual);
+        transicion.put(""+estadosfinales+".",actual2);
+        transicion.put(""+estadosfinales+",",actual2);
+        transicion.put(""+estadosfinales+";",actual2);
+        transicion.put(""+estadosfinales+":",actual2);
+        transicion.put(""+estadosfinales+"'",actual2);
+        transicion.put(""+estadosfinales+")",actual2);
+        transicion.put(""+estadosfinales+" ",actual2);
 
     }
     
@@ -108,13 +112,15 @@ public class AFNSubcadena {
         String keylambda=""+estado+"lamb";
         int numestados;
         if(transicion.containsKey(key)){
-            numestados=transicion.size();
+            numestados=transicion.get(key).size();
             System.out.println(key);
             for(int i=0;i<numestados;i++) {
                 if (w.length() == 1 && isFinalState(transicion.get(key).get(i))) {
+                    System.out.println(transicion.get(key).get(i));
                     return true;
                 } else if (w.length() > 1) {
                     if (isWElement(w.substring(1), transicion.get(key).get(i))) {
+                        System.out.println(transicion.get(key).get(i));
                         return true;
                     }
                 } else if (w.length() == 1) {
