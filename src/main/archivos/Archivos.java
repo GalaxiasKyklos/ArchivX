@@ -5,7 +5,10 @@
  */
 package main.archivos;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -15,10 +18,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class Archivos {
     private File files[];
-    private String currentStr[];
+    private ArrayList<String[]> currentStr;
     private File currentFile;
-    private int innerIndex;
-    private int outerIndex;
+    private int fileIndex;
+    private int lineIndex;
+    private int strIndex;
     
     public Archivos() {
         JFileChooser chooser = new JFileChooser();
@@ -32,11 +36,42 @@ public class Archivos {
             files = folder.listFiles();
         }
         
-        innerIndex = 0;
-        outerIndex = 0;
+        fileIndex = 0;
+        lineIndex = 0;
+        strIndex = 0;
+        
+        currentStr = new ArrayList<>();
+        
+        readFile(0);
     }
     
     public String nextString() {
-        return "";
+        if (strIndex == currentStr.get(lineIndex).length) {
+            strIndex = 0;
+            lineIndex++;
+        }
+        
+        if (lineIndex == currentStr.size())
+            if (fileIndex != files.length - 1) {
+                lineIndex = 0;
+                strIndex = 0;
+                readFile(++fileIndex);
+            }
+        
+        return currentStr.get(lineIndex)[strIndex++];
+    }
+    
+    private void readFile(int index) {
+        currentStr.clear();
+        try (BufferedReader br = new BufferedReader(new FileReader(files[index]))) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    currentStr.add(line.split(" "));
+                }
+        } catch (Exception e) {}
+    }
+    
+    public boolean hasNext() {
+        return !(fileIndex == files.length - 1 && lineIndex == currentStr.size() - 1 && strIndex == currentStr.get(lineIndex).length - 1);
     }
 }
