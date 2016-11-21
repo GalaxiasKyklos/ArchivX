@@ -84,10 +84,15 @@ public class Archivos {
     }
     
     public int getCurrentLine() {
-        return lineIndex;
+        return lineIndex+1;
     }
     
     public String getCurrentPath() {
         return currentPath;
+    }
+    public void reset(){
+        strIndex=0;
+        fileIndex=-1;
+        lineIndex=0;
     }
 }

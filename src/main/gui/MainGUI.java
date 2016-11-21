@@ -5,6 +5,8 @@
  */
 package main.gui;
 
+import java.awt.*;
+
 /**
  *
  * @author Saúl
