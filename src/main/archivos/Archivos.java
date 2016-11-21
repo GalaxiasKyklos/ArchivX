@@ -36,7 +36,11 @@ public class Archivos {
         if (c == JFileChooser.APPROVE_OPTION) {
             File folder = new File(chooser.getCurrentDirectory().getAbsolutePath());
             System.out.println(chooser.getCurrentDirectory().getAbsolutePath());
-            files = folder.listFiles();
+            files = folder.listFiles(new FilenameFilter() {
+                public boolean accept(File dir, String name) {
+                    return name.toLowerCase().endsWith(".txt");
+                }
+             });
         }
         
         fileIndex = 0;
@@ -76,6 +80,6 @@ public class Archivos {
     }
     
     public boolean hasNext() {
-        return !(fileIndex == files.length - 1 && lineIndex == currentStr.size() - 1 && strIndex == currentStr.get(lineIndex).length - 1);
+        return !(fileIndex == files.length - 1 && lineIndex == currentStr.size() - 1 && strIndex == currentStr.get(lineIndex).length);
     }
 }
