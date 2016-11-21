@@ -41,15 +41,12 @@ public class AFNSubcadena {
                 n.add(1);
             }
             transicion.put("0" + ((char) i), n);
-            System.out.println(transicion.get("0p"));
             ArrayList<Integer> m=new ArrayList<Integer>();
             m.add(estados-1);
             transicion.put((estados-1) + "" + ((char) i),m);
-            System.out.println((estados-1) + "" + ((char) i));
-            System.out.println(transicion.get("0p"));
-            System.out.println(transicion.get("5p"));
+
         }
-        System.out.println(transicion.get("0p").get(0));
+
         
         for(int i=1;i<estados-1;i++){
             ArrayList<Integer> n=new ArrayList<Integer>();
