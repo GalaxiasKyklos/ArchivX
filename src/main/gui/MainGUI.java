@@ -5,6 +5,7 @@
  */
 package main.gui;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -112,6 +113,11 @@ public class MainGUI extends javax.swing.JFrame {
         jButton3.setText("Acerca de");
 
         jButton4.setText("Abrir");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -179,6 +185,7 @@ public class MainGUI extends javax.swing.JFrame {
                     mod.addRow(new Object[]{file.getName(), table.get(file).toString()});
                 } catch (Exception e) {}
             }
+            busqueda.resetFile();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -190,6 +197,15 @@ public class MainGUI extends javax.swing.JFrame {
         busqueda = new Busqueda();
         jLabel1.setText(busqueda.getPath());
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        int row = jTable1.getSelectedRow();
+        DefaultTableModel mod = (DefaultTableModel) jTable1.getModel();
+        File f = (File) mod.getValueAt(row, 0);
+        try {
+            Desktop.getDesktop().open(f);
+        } catch (Exception e) {}
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
