@@ -81,4 +81,12 @@ public class Archivos {
     public boolean hasNext() {
         return !(fileIndex == files.length - 1 && lineIndex == currentStr.size() - 1 && strIndex == currentStr.get(lineIndex).length);
     }
+    
+    public File getCurrentFile() {
+        return files[fileIndex];
+    }
+    
+    public int getCurrentLine() {
+        return lineIndex;
+    }
 }
