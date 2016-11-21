@@ -71,7 +71,9 @@ public class Busqueda {
 
         return table;
     }
-
+    public void resetFile(){
+        archivos.reset();
+    }
 
 
 }
