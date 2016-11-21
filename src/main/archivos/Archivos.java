@@ -37,6 +37,6 @@ public class Archivos {
     }
     
     public String nextString() {
-        
+        return "";
     }
 }
