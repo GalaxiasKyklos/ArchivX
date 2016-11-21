@@ -5,6 +5,7 @@
  */
 package main.AFN;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 
 /**
@@ -16,7 +17,7 @@ public class AFNSubcadena {
     private int estadoactual;
     private int estadosfinales;
     private String alfabeto[];
-    Hashtable<String, Integer> transicion=new Hashtable<>();
+    Hashtable<String, ArrayList<Integer>> transicion=new Hashtable<>();
 
     /**
      * Constructor
@@ -26,28 +27,41 @@ public class AFNSubcadena {
         estados=palabra.length()+1;
         estadosfinales=palabra.length();
         estadoactual=0;
-        transicion.put(""+0+"(",0);
-        transicion.put(""+0+" ",0);
+        ArrayList<Integer> actual=new ArrayList<Integer>();
+        actual.add(0);
+        transicion.put(""+0+"(",actual);
+        transicion.put(""+0+" ",actual);
         
         // Agregamos transiciones para que el autómata acepte cualquier cosa al 
         // principio y al final
         for (int i = 0; i < 0xFF; i++) {
-            transicion.put("0" + ((char) i), 0);
-            transicion.put((estados-1) + "" + ((char) i), estados-1);
+            ArrayList<Integer> n=new ArrayList<Integer>();
+            n.add(0);
+            if((char)i==palabra.charAt(0)){
+                n.add(1);
+            }
+            transicion.put("0" + ((char) i), n);
+            n.clear();
+            n.add(estados-1);
+            transicion.put((estados-1) + "" + ((char) i),n);
         }
         
         
-        for(int i=0;i<estados-1;i++){
+        for(int i=1;i<estados-1;i++){
+            ArrayList<Integer> n=new ArrayList<Integer>();
+            n.add(i+1);
             String key=""+i+palabra.charAt(i);
-            transicion.put(key, i+1);
+            transicion.put(key, n);
         }
-        transicion.put(""+estadosfinales+".",estadosfinales);
-        transicion.put(""+estadosfinales+",",estadosfinales);
-        transicion.put(""+estadosfinales+";",estadosfinales);
-        transicion.put(""+estadosfinales+":",estadosfinales);
-        transicion.put(""+estadosfinales+"'",estadosfinales);
-        transicion.put(""+estadosfinales+")",estadosfinales);
-        transicion.put(""+estadosfinales+" ",estadosfinales);
+        actual.clear();
+        actual.add(estadosfinales);
+        transicion.put(""+estadosfinales+".",actual);
+        transicion.put(""+estadosfinales+",",actual);
+        transicion.put(""+estadosfinales+";",actual);
+        transicion.put(""+estadosfinales+":",actual);
+        transicion.put(""+estadosfinales+"'",actual);
+        transicion.put(""+estadosfinales+")",actual);
+        transicion.put(""+estadosfinales+" ",actual);
 
     }
     
@@ -94,16 +108,19 @@ public class AFNSubcadena {
         String keylambda=""+estado+"lamb";
         int numestados;
         if(transicion.containsKey(key)){
+            numestados=transicion.size();
             System.out.println(key);
-            if(w.length()==1&&isFinalState(transicion.get(key))){
-                return true;
-            }else if (w.length()>1){
-                if(isWElement(w.substring(1),transicion.get(key))){
+            for(int i=0;i<numestados;i++) {
+                if (w.length() == 1 && isFinalState(transicion.get(key).get(i))) {
                     return true;
-                }
-            }else if(w.length()==1){
-                if(lastLambda(transicion.get(key))){
-                    return true;
+                } else if (w.length() > 1) {
+                    if (isWElement(w.substring(1), transicion.get(key).get(i))) {
+                        return true;
+                    }
+                } else if (w.length() == 1) {
+                    if (lastLambda(transicion.get(key).get(i))) {
+                        return true;
+                    }
                 }
             }
         }
@@ -120,16 +137,16 @@ public class AFNSubcadena {
         String key=""+estado+"lamb";
         int numestados;
         if(transicion.containsKey(key)){
-            //numestados=transicion.get(key).length;
-            //for(int i=0;i<numestados;i++){
-                if(isFinalState(transicion.get(key))){
+            numestados=transicion.get(key).size();
+            for(int i=0;i<numestados;i++){
+                if(isFinalState(transicion.get(key).get(i))){
                     return true;
                 }else{
-                    if(lastLambda(transicion.get(key))){
+                    if(lastLambda(transicion.get(key).get(i))){
                         return true;
                     }
                 }
-            //}
+            }
         }else{
             return false;
         }
