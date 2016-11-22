@@ -6,6 +6,9 @@
 package main.gui;
 
 import java.awt.Desktop;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -31,6 +34,13 @@ public class MainGUI extends javax.swing.JFrame {
         
         initComponents();
         jRadioButton1.setSelected(true);
+        jTextField1.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    jButton2.doClick();
+                }
+            }
+        });
     }
 
     /**
@@ -68,6 +78,12 @@ public class MainGUI extends javax.swing.JFrame {
         });
 
         jLabel2.setText("Buscar: ");
+
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Buscar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -241,6 +257,10 @@ public class MainGUI extends javax.swing.JFrame {
         }
         jRadioButton1.setSelected(!jRadioButton2.isSelected());
     }//GEN-LAST:event_jRadioButton2ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments
