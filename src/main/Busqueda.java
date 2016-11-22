@@ -13,10 +13,12 @@ import java.util.Hashtable;
  */
 public class Busqueda {
     private boolean cadena;
+    private boolean mayuscula;
     private Archivos archivos;
 
     public Busqueda(){
         cadena=true;
+        mayuscula=false;
         archivos= new Archivos();
     }
 
@@ -27,13 +29,18 @@ public class Busqueda {
     public void setCadena(boolean actual){
         cadena=actual;
     }
+    public void setMayuscula(boolean actual){
+        mayuscula=actual;
+    }
 
     public Hashtable<File,ArrayList<Integer>> verifyString(String palabra){
         Hashtable<File,ArrayList<Integer>> table=new Hashtable<>();
         if(cadena){
+            if(mayuscula)palabra=palabra.toLowerCase();
             AFNCadena afnCadena=new AFNCadena(palabra);
             while (archivos.hasNext()){
                 String cadena=archivos.nextString();
+                if(mayuscula)cadena=cadena.toLowerCase();
                 if(cadena.length()>0)
                 if(afnCadena.isWElement(cadena)){
                     /*if(!table.containsKey(archivos.getCurrentFile())) {
@@ -50,9 +57,11 @@ public class Busqueda {
             }
 
         }else{
+            if(mayuscula)palabra=palabra.toLowerCase();
             AFNSubcadena afnSubcadena=new AFNSubcadena(palabra);
             while (archivos.hasNext()){
                 String cadena=archivos.nextString();
+                if(mayuscula)cadena=cadena.toLowerCase();
                 if(cadena.length()>0)
                 if(afnSubcadena.isWElement(cadena)){
                     /*if(!table.containsKey(archivos.getCurrentFile())) {
