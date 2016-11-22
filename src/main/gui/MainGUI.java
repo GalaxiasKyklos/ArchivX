@@ -20,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
 import main.Busqueda;
 
 /**
- *
+ * Interfaz principal del programa, incluye en main
  * @author Saúl
  */
 public class MainGUI extends javax.swing.JFrame {
@@ -212,6 +212,10 @@ public class MainGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Listener para el botón buscar
+     * @param evt 
+     */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         restTable();
         String cadena = jTextField1.getText();
@@ -229,12 +233,20 @@ public class MainGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    /**
+     * Listener para el checkbox Mayus / minus
+     * @param evt 
+     */
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
         try {
             busqueda.setMayuscula(jCheckBox1.isSelected());
         } catch (Exception e) {}
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
+    /**
+     * Listener para el botón cambiar directorio
+     * @param evt 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         busqueda = new Busqueda(this);
         busqueda.setCadena(jRadioButton1.isSelected());
@@ -242,6 +254,10 @@ public class MainGUI extends javax.swing.JFrame {
         jLabel1.setText(busqueda.getPath());
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    /**
+     * Listener para el botón abrir
+     * @param evt 
+     */
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         try {
             int row = jTable1.getSelectedRow();
@@ -257,6 +273,10 @@ public class MainGUI extends javax.swing.JFrame {
         } catch (Exception e) {}
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    /**
+     * Listener para el botón radia cadena
+     * @param evt 
+     */
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
         if (busqueda != null) {
             busqueda.setCadena(true);
@@ -264,6 +284,10 @@ public class MainGUI extends javax.swing.JFrame {
         jRadioButton2.setSelected(!jRadioButton1.isSelected());
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
+    /**
+     * Listener para el botón radial subcadena
+     * @param evt 
+     */
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
         if (busqueda != null) {
             busqueda.setCadena(false);
@@ -275,13 +299,18 @@ public class MainGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    /**
+     * Listener para el botón acerca de
+     * @param evt 
+     */
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        String s = "Software desarrollado por Rodolfo Carrillo y Saúl Ponce\n";
+        String s = "Software desarrollado por:\n Rodolfo Carrillo y Saúl Ponce\n";
         s += "Iconos de Asher, bajo lincencia GNU";
         JOptionPane.showMessageDialog(this, s, "Acerca de", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
+     * Main del programa
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -316,6 +345,9 @@ public class MainGUI extends javax.swing.JFrame {
         });
     }
     
+    /**
+     * Restablece la tabla, para uso interno de la clase
+     */
     private void restTable() {
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

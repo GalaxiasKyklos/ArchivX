@@ -14,7 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
- *
+ * Permite crear un objeto que conecta a un directorio y habre los txt en él
  * @author Saúl
  */
 public class Archivos {
@@ -25,6 +25,11 @@ public class Archivos {
     private int strIndex;
     private String currentPath;
     
+    
+    /**
+     * Constructor, crea un JFileChooser para elegir el directorio en el que se va a buscar
+     * @param parent 
+     */
     public Archivos(JFrame parent) {
         JFileChooser chooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos de texto", "txt");
@@ -49,6 +54,10 @@ public class Archivos {
         readFile(0);
     }
     
+    /**
+     * Regresa la siguiente palabra en los archivos del directorio
+     * @return palabra siguiente
+     */
     public String nextString() {
         if (strIndex == currentStr.get(lineIndex).length) {
             strIndex = 0;
@@ -65,6 +74,10 @@ public class Archivos {
         return currentStr.get(lineIndex)[strIndex++];
     }
     
+    /**
+     * Abre un archivo del directorio y lo carga a memoria, de uso interno de la clase
+     * @param index número de archivo en el directorio
+     */
     private void readFile(int index) {
         currentStr.clear();
         try (BufferedReader br = new BufferedReader(new FileReader(files[index]))) {
@@ -76,21 +89,41 @@ public class Archivos {
         } catch (Exception e) {}
     }
     
+    /**
+     * Permite verificar si hay una palabra siguiente en el directorio
+     * @return true si aun hay palabras en el directorio, false en otro caso
+     */
     public boolean hasNext() {
         return !(fileIndex == files.length - 1 && lineIndex == currentStr.size() - 1 && strIndex == currentStr.get(lineIndex).length);
     }
     
+    /**
+     * Regresa el archivo actual
+     * @return archivo que se está leyendo en ese momento
+     */
     public File getCurrentFile() {
         return files[fileIndex];
     }
     
+    /**
+     * Regresa la linea actual en el archivo actual
+     * @return línea actual que se está leyendo
+     */
     public int getCurrentLine() {
         return lineIndex+1;
     }
     
+    /**
+     * Regresa el directorio actual
+     * @return directorio que se está leyendo
+     */
     public String getCurrentPath() {
         return currentPath;
     }
+    
+    /**
+     * Restablece los índice internos de la clase
+     */
     public void reset(){
         strIndex=0;
         fileIndex=0;
