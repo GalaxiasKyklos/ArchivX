@@ -8,14 +8,14 @@ package main.gui;
 import java.awt.Desktop;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Hashtable;
-import javax.swing.JButton;
+
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
+
 
 import main.Busqueda;
 
