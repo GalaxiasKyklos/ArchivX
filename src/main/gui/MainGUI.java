@@ -236,7 +236,7 @@ public class MainGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        busqueda = new Busqueda();
+        busqueda = new Busqueda(this);
         busqueda.setCadena(jRadioButton1.isSelected());
         busqueda.setMayuscula(jCheckBox1.isSelected());
         jLabel1.setText(busqueda.getPath());

@@ -7,6 +7,7 @@ import main.archivos.Archivos;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import javax.swing.JFrame;
 
 /**
  * Created by Rodolfo on 21/11/2016.
@@ -16,10 +17,10 @@ public class Busqueda {
     private boolean mayuscula;
     private Archivos archivos;
 
-    public Busqueda(){
+    public Busqueda(JFrame parent){
         cadena=true;
         mayuscula=false;
-        archivos= new Archivos();
+        archivos= new Archivos(parent);
     }
 
     public String getPath(){

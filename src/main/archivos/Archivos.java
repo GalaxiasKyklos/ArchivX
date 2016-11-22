@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -24,12 +25,12 @@ public class Archivos {
     private int strIndex;
     private String currentPath;
     
-    public Archivos() {
+    public Archivos(JFrame parent) {
         JFileChooser chooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos de texto", "txt");
         chooser.setFileFilter(filter);
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        int c = chooser.showOpenDialog(null);
+        int c = chooser.showOpenDialog(parent);
         
         if (c == JFileChooser.APPROVE_OPTION) {
             File folder = chooser.getSelectedFile();
