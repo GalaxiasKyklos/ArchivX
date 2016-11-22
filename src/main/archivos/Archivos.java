@@ -33,7 +33,7 @@ public class Archivos {
         
         if (c == JFileChooser.APPROVE_OPTION) {
             File folder = chooser.getSelectedFile();
-            currentPath = chooser.getCurrentDirectory().getAbsolutePath();
+            currentPath = chooser.getSelectedFile().getAbsolutePath();
             System.out.println(chooser.getCurrentDirectory().getAbsolutePath());
 
             files = folder.listFiles((File dir, String name) -> name.toLowerCase().endsWith(".txt"));
