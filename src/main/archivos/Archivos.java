@@ -92,7 +92,8 @@ public class Archivos {
     }
     public void reset(){
         strIndex=0;
-        fileIndex=-1;
+        fileIndex=0;
         lineIndex=0;
+        readFile(0);
     }
 }
