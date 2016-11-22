@@ -32,7 +32,6 @@ public class MainGUI extends javax.swing.JFrame {
     public MainGUI() {
         this.setIconImage(new javax.swing.ImageIcon(getClass().getResource("Search.png")).getImage());
         this.setTitle("ArchivX");
-        
         initComponents();
         jRadioButton1.setSelected(true);
         jTextField1.addKeyListener(new KeyAdapter() {
@@ -42,6 +41,9 @@ public class MainGUI extends javax.swing.JFrame {
                 }
             }
         });
+        this.pack();
+        this.setLocationRelativeTo(null);
+        this.repaint();
     }
 
     /**
