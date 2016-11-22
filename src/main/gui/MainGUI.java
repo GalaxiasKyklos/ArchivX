@@ -21,13 +21,16 @@ import main.Busqueda;
  */
 public class MainGUI extends javax.swing.JFrame {
     private Busqueda busqueda;
+    private ArrayList<File> files;
     /**
      * Creates new form MainGUI
      */
     public MainGUI() {
         this.setIconImage(new javax.swing.ImageIcon(getClass().getResource("Search.png")).getImage());
         this.setTitle("ArchiveX");
+        
         initComponents();
+        jRadioButton1.setSelected(true);
     }
 
     /**
@@ -99,8 +102,18 @@ public class MainGUI extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jRadioButton1.setText("Cadena");
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
 
         jRadioButton2.setText("Subcadena");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
 
         jCheckBox1.setText("Dif. May. / Min.");
         jCheckBox1.setActionCommand("Dif. May. / Min.");
@@ -177,12 +190,14 @@ public class MainGUI extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         String cadena = jTextField1.getText();
+        files = new ArrayList<>();
         if (!cadena.equals("") && !cadena.contains(" ")) {
             Hashtable<File, ArrayList<Integer>> table = busqueda.verifyString(cadena);
             DefaultTableModel mod = (DefaultTableModel) jTable1.getModel();
             for (File  file : table.keySet()) {
                 try {
                     mod.addRow(new Object[]{file.getName(), table.get(file).toString()});
+                    files.add(file);
                 } catch (Exception e) {}
             }
             busqueda.resetFile();
@@ -199,13 +214,33 @@ public class MainGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        int row = jTable1.getSelectedRow();
-        DefaultTableModel mod = (DefaultTableModel) jTable1.getModel();
-        File f = (File) mod.getValueAt(row, 0);
         try {
-            Desktop.getDesktop().open(f);
+            int row = jTable1.getSelectedRow();
+            DefaultTableModel mod = (DefaultTableModel) jTable1.getModel();
+            File file = null;
+            for (File f : files) {
+                if (f.getName().equals(mod.getValueAt(row, 0))) {
+                    file = f;
+                    break;
+                }
+            }
+            Desktop.getDesktop().open(file);
         } catch (Exception e) {}
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        if (busqueda != null) {
+            busqueda.setCadena(true);
+        }
+        jRadioButton2.setSelected(!jRadioButton1.isSelected());
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+        if (busqueda != null) {
+            busqueda.setCadena(false);
+        }
+        jRadioButton1.setSelected(!jRadioButton2.isSelected());
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -16,7 +16,7 @@ public class Busqueda {
     private Archivos archivos;
 
     public Busqueda(){
-        cadena=false;
+        cadena=true;
         archivos= new Archivos();
     }
 
