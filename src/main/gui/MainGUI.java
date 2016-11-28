@@ -26,6 +26,7 @@ import main.Busqueda;
 public class MainGUI extends javax.swing.JFrame {
     private Busqueda busqueda;
     private ArrayList<File> files;
+    private Hashtable<File, ArrayList<Integer>> table;
     /**
      * Creates new form MainGUI
      */
@@ -56,6 +57,7 @@ public class MainGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        jButton5 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -68,6 +70,9 @@ public class MainGUI extends javax.swing.JFrame {
         jCheckBox1 = new javax.swing.JCheckBox();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+
+        jButton5.setText("jButton5");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -135,7 +140,6 @@ public class MainGUI extends javax.swing.JFrame {
         });
 
         jCheckBox1.setText("Dif. May. / Min.");
-        jCheckBox1.setActionCommand("Dif. May. / Min.");
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox1ActionPerformed(evt);
@@ -153,6 +157,13 @@ public class MainGUI extends javax.swing.JFrame {
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
+            }
+        });
+
+        jButton6.setText("Líneas");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
             }
         });
 
@@ -177,7 +188,8 @@ public class MainGUI extends javax.swing.JFrame {
                     .addComponent(jRadioButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jCheckBox1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -203,8 +215,10 @@ public class MainGUI extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jCheckBox1)
                         .addGap(18, 18, 18)
+                        .addComponent(jButton6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
                         .addComponent(jButton3)))
                 .addContainerGap())
         );
@@ -221,11 +235,11 @@ public class MainGUI extends javax.swing.JFrame {
         String cadena = jTextField1.getText();
         files = new ArrayList<>();
         if (!cadena.equals("") && !cadena.contains(" ")) {
-            Hashtable<File, ArrayList<Integer>> table = busqueda.verifyString(cadena);
+            table = busqueda.verifyString(cadena);
             DefaultTableModel mod = (DefaultTableModel) jTable1.getModel();
             for (File  file : table.keySet()) {
                 try {
-                    mod.addRow(new Object[]{file.getName(), table.get(file).toString()});
+                    mod.addRow(new Object[]{file.getName(), table.get(file).size()});
                     files.add(file);
                 } catch (Exception e) {}
             }
@@ -309,6 +323,22 @@ public class MainGUI extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, s, "Acerca de", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        try {
+            int row = jTable1.getSelectedRow();
+            DefaultTableModel mod = (DefaultTableModel) jTable1.getModel();
+            File file = null;
+            for (File f : files) {
+                if (f.getName().equals(mod.getValueAt(row, 0))) {
+                    file = f;
+                    break;
+                }
+            }
+           new Ocurrencias(table.get(file).toString(), this);
+        } catch (Exception e) {}
+    }//GEN-LAST:event_jButton6ActionPerformed
+
     /**
      * Main del programa
      * @param args the command line arguments
@@ -380,6 +410,8 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
