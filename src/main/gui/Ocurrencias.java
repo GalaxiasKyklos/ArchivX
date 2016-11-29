@@ -11,7 +11,7 @@ import java.awt.event.WindowListener;
 import javax.swing.JFrame;
 
 /**
- *
+ * Ventana que muestra las ocurrencias en el archivo
  * @author Saúl
  */
 public class Ocurrencias extends javax.swing.JFrame {
@@ -92,7 +92,10 @@ public class Ocurrencias extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Cierra la ventana y habilita la anterior
+     * @param evt 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.frame.setEnabled(true);
         this.dispose();
